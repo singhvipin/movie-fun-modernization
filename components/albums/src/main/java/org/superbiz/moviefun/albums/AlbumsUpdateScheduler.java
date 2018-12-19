@@ -48,6 +48,14 @@ public class AlbumsUpdateScheduler {
     }
 
     private boolean startAlbumSchedulerTask() {
+        try {
+            jdbcTemplate.execute("CREATE TABLE album_scheduler_task (started_at TIMESTAMP NULL DEFAULT NULL)");
+            jdbcTemplate.execute("INSERT INTO album_scheduler_task (started_at) VALUES (NULL)");
+        }catch (Throwable e){
+            System.out.println("ERROR OCCURRED ..THATS OK " );
+            e.printStackTrace();
+        }
+
         int updatedRows = jdbcTemplate.update(
             "UPDATE album_scheduler_task" +
                 " SET started_at = now()" +
