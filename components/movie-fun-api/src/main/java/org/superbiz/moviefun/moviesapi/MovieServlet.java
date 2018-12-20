@@ -16,6 +16,8 @@
  */
 package org.superbiz.moviefun.moviesapi;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -27,11 +29,14 @@ import java.io.IOException;
 import java.util.List;
 
 @Component
+@RefreshScope
 public class MovieServlet extends HttpServlet {
 
     private static final long serialVersionUID = -5832176047021911038L;
 
-    public static int PAGE_SIZE = 5;
+    @Value("${movies.pagesize}")
+    public int PAGE_SIZE =7;
+
 
     private MoviesClient moviesClient;
 
